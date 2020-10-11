@@ -58,14 +58,14 @@ export class DirectModule extends Module {
 
   async observe() {
     await this.openDirect();
-    // await this.getDirectUserLinks();
+    await this.getDirectUserLinks();
 
-    // if (this.unreadDialogLinks) {
-    //   await this.reloadDirectPage();
-    //   await this.openUserChat();
-    //   await this.checkUserMessage();
-    //   await this.sendMessage();
-    // }
+    if (this.unreadDialogLinks) {
+      await this.reloadDirectPage();
+      await this.openUserChat();
+      await this.checkUserMessage();
+      await this.sendMessage();
+    }
 
     // setInterval(async () => {
     //   await this.getDirectUserLinks();
