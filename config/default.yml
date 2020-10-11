@@ -1,0 +1,14 @@
+API:
+  PORT: 4000
+
+OBSERVE:
+  PORT: 4000
+
+DATABASE:
+  TYPE: 'postgres'
+
+jwt:
+  expiresIn: '99999h'
+
+ACCOUNT:
+  SESSION: '26316191569%3AqhMeaH8gjNp7fa%3A10'

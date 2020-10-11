@@ -1,0 +1,6 @@
+DATABASE:
+  URL: postgres://murduspzndjzug:e2a798092505a93521f365111866e7094343f23464fe9d3211c7aa94b5331af1@ec2-52-208-175-161.eu-west-1.compute.amazonaws.com:5432/dc2m3f31ke4m9q
+  SYNCHRONIZE: true
+
+JWT:
+  SECRET: 'FKdksk12l3ldlsfdlLlsdll123l05kgjgk04jdkgn6kk2d0fkgsdk32ldovyjkxg'
