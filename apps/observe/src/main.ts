@@ -7,7 +7,7 @@ import { initDatabaseConnection } from './database';
 async function bootstrap() {
   await initDatabaseConnection();
   const browser = await Puppeteer.launch({
-    headless: false,
+    headless: true,
     args: ['--disable-web-security'],
   });
   const moduleProps = { browser };
