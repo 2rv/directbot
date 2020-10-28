@@ -1,5 +1,6 @@
 import { CommandEntity } from 'apps/api/src/core/command/command.entity';
 import { Module, ModuleState } from '../../type';
+import { PopupService } from '../login/popup.service';
 
 import { ChatService } from './chat.service';
 import { DialogService } from './dialog.service';
@@ -19,19 +20,21 @@ export class DirectModule extends Module {
   unreadRequestLinks: string[];
   directPage: any;
   requestPage: any;
+  popupService: PopupService;
 
   constructor(props) {
     super(props);
 
     this.chatService = new ChatService(this);
+    this.popupService = new PopupService(this);
     this.dialogService = new DialogService(this);
     this.directRepository = new DirectRepository();
   }
 
   async init() {
     await this.getCommandList();
-
     await this.openDirect();
+    await this.popupService.closeDialogPopup();
     await this.openRequest();
 
     this.observe();
@@ -103,6 +106,7 @@ export class DirectModule extends Module {
 
   async openDirect() {
     this.directPage = await this.browser.newPage();
+    this.page = this.directPage;
 
     await this.directPage.goto(this.path.DIRECT, { waitUntil: 'load' });
     await this.directPage.waitFor(2000);

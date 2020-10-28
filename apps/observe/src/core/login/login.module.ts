@@ -30,10 +30,6 @@ export class LoginModule extends Module {
   }
 
   async login() {
-    const pageFisrt = await this.browser.newPage();
-    await pageFisrt.goto(this.path.LOGIN, { waitUntil: 'load' });
-    await pageFisrt.waitFor(500);
-
     this.page = await this.browser.newPage();
 
     await this.page.goto(this.path.LOGIN, { waitUntil: 'load' });
