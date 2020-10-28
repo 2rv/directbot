@@ -1,0 +1,3 @@
+export enum ErrorType {
+  ACTUAL_PHONE_CODE_NOT_FOUND = 'ACTUAL_PHONE_CODE_NOT_FOUND',
+}

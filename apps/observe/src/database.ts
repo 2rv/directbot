@@ -1,8 +1,8 @@
 import { DatabaseConfig } from './config/database.config';
-import { ConnectionManager } from 'typeorm';
+import { getConnectionManager } from 'typeorm';
 
 export const initDatabaseConnection = async () => {
-  const connectionManager = new ConnectionManager();
+  const connectionManager = getConnectionManager();
   const connection = connectionManager.create(DatabaseConfig);
   await connection.connect();
 };

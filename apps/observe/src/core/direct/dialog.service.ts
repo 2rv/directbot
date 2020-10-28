@@ -1,10 +1,13 @@
 import { Service } from '../../type';
+import { DirectModuleState } from './direct.module';
 
 export class DialogService extends Service {
+  module: DirectModuleState;
+
   async getUnreadDialogLinks() {
-    const directUserLinks = await this.module.page.$$eval('a', (items) =>
+    const directUserLinks = await this.module.directPage.$$eval('a', items =>
       items
-        .filter((link) => {
+        .filter(link => {
           if (link.getAttribute('href').search('/direct/t/') === -1) {
             return false;
           }
@@ -12,9 +15,17 @@ export class DialogService extends Service {
             return false;
           }
 
+          if (
+            link.children[0].children[1].children[1].children[0].children[0].children[0].children[0].innerText.match(
+              /^\//,
+            ) === null
+          ) {
+            return false;
+          }
+
           return true;
         })
-        .map((link) => link.getAttribute('href')),
+        .map(link => link.getAttribute('href')),
     );
 
     if (directUserLinks.length === 0) {
@@ -22,5 +33,25 @@ export class DialogService extends Service {
     }
 
     return directUserLinks;
+  }
+
+  async getRequestDialogLinks() {
+    const requestUserLinks = await this.module.requestPage.$$eval('a', items =>
+      items
+        .filter(link => {
+          if (link.getAttribute('href').search('/direct/t/') === -1) {
+            return false;
+          }
+
+          return true;
+        })
+        .map(link => link.getAttribute('href')),
+    );
+
+    if (requestUserLinks.length === 0) {
+      return null;
+    }
+
+    return requestUserLinks;
   }
 }

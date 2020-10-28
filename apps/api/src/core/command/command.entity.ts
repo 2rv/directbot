@@ -6,7 +6,7 @@ import {
   CreateDateColumn,
   ManyToOne,
 } from 'typeorm';
-import { UserEntity } from '../user/user.entity';
+import { AccountEntity } from '../account/account.entity';
 
 @Entity({ name: 'command' })
 export class CommandEntity extends BaseEntity {
@@ -14,18 +14,18 @@ export class CommandEntity extends BaseEntity {
   id: number;
 
   @Column()
-  triger: string;
+  trigger: string;
 
   @Column()
-  value: string;
+  data: string;
 
   @CreateDateColumn()
   createDate: string;
 
   @ManyToOne(
-    type => UserEntity,
-    user => user.command,
+    type => AccountEntity,
+    account => account.command,
     { eager: false },
   )
-  user: UserEntity;
+  account: AccountEntity;
 }

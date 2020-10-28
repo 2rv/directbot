@@ -6,8 +6,8 @@ import * as helmet from 'helmet';
 import * as config from 'config';
 
 export async function bootstrap() {
-  const serverConfig = config.get('api');
-  const port = process.env.PORT || serverConfig.port;
+  const serverConfig = config.get('API');
+  const port = process.env.PORT || serverConfig.PORT;
 
   const app = await NestFactory.create(AppModule);
   app.enableCors();

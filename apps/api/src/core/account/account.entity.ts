@@ -9,20 +9,23 @@ import {
 import { CommandEntity } from '../command/command.entity';
 import { DialogEntity } from '../dialog/dialog.entity';
 
-@Entity({ name: 'user' })
-export class UserEntity extends BaseEntity {
+@Entity({ name: 'account' })
+export class AccountEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ unique: true })
-  session: string;
+  login: string;
+
+  @Column()
+  password: string;
 
   @CreateDateColumn()
   createDate: string;
 
   @OneToMany(
     type => DialogEntity,
-    dialogEntity => dialogEntity.user,
+    dialogEntity => dialogEntity.account,
     {
       eager: false,
     },
@@ -31,7 +34,7 @@ export class UserEntity extends BaseEntity {
 
   @OneToMany(
     type => CommandEntity,
-    commandEntity => commandEntity.user,
+    commandEntity => commandEntity.account,
     {
       eager: false,
     },

@@ -11,9 +11,9 @@ async function bootstrap() {
     args: ['--no-sandbox'],
   });
   const moduleProps = { browser };
-  await new LoginModule(moduleProps).login();
-  const directModule = new DirectModule(moduleProps);
-  await directModule.observe();
+
+  await new LoginModule(moduleProps).init();
+  await new DirectModule(moduleProps).init();
 }
 
 bootstrap();

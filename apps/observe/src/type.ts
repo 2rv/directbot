@@ -6,7 +6,7 @@ export interface ModuleProps {
   browser: Browser;
 }
 
-interface ModuleState {
+export interface ModuleState {
   browser: Browser;
   path: PathProps;
   config: {
@@ -15,7 +15,7 @@ interface ModuleState {
   page: Page | null;
 }
 
-export class Module implements ModuleState {
+export abstract class Module implements ModuleState {
   browser: Browser;
   page: Page;
 
@@ -27,6 +27,8 @@ export class Module implements ModuleState {
   config = {
     account: AccountConfig,
   };
+
+  abstract init(): Promise<void>;
 }
 
 export interface ServiceProps {
@@ -34,6 +36,7 @@ export interface ServiceProps {
   page: Page;
 }
 
+// tslint:disable-next-line: max-classes-per-file
 export class Service {
   module: ModuleState;
 

@@ -8,16 +8,16 @@ import {
 } from 'typeorm';
 import { AccountEntity } from '../account/account.entity';
 
-@Entity({ name: 'dialog' })
-export class DialogEntity extends BaseEntity {
+@Entity({ name: 'phone_code' })
+export class PhoneCodeEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true })
-  dialog: string;
+  @Column({ nullable: true })
+  value: string;
 
-  // @Column({ nullable: false })
-  // nickname: string;
+  @Column({ nullable: false })
+  dataId: string;
 
   @CreateDateColumn()
   createDate: string;
