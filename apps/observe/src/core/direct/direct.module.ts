@@ -58,25 +58,28 @@ export class DirectModule extends Module {
     this.logger.log('Starting observe');
 
     for (;;) {
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      await this.checkRequest();
+
+      await this.directPage.bringToFront();
+
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
       for (let y = 0; y < 5; y++) {
         await new Promise(resolve => setTimeout(resolve, 1000));
+        this.logger.log('Starting reopen direct');
+        await this.dialogService.reloadDirectUserLinks();
+        this.logger.log('End reopen direct');
 
-        await this.checkRequest();
-
-        await this.directPage.bringToFront();
-
-        await new Promise(resolve => setTimeout(resolve, 1000));
-
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 25; i++) {
           await this.checkDirect();
-          await new Promise(resolve => setTimeout(resolve, 5000));
+          await new Promise(resolve => setTimeout(resolve, 4000));
         }
       }
 
+      await this.reloadDirect();
       await new Promise(resolve => setTimeout(resolve, 1000));
-      this.logger.log('Starting reopen direct');
-      await this.dialogService.reloadDirectUserLinks();
-      this.logger.log('End reopen direct');
     }
   }
 
@@ -150,6 +153,11 @@ export class DirectModule extends Module {
     this.page = this.directPage;
 
     await this.directPage.goto(this.path.DIRECT, { waitUntil: 'load' });
+    await this.directPage.waitFor(2000);
+  }
+
+  async reloadDirect() {
+    await this.directPage.reload();
     await this.directPage.waitFor(2000);
   }
 
