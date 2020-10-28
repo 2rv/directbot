@@ -54,4 +54,11 @@ export class DialogService extends Service {
 
     return requestUserLinks;
   }
+
+  async reloadDirectUserLinks() {
+    await this.module.directPage.click('a[href="/"]');
+    await this.module.directPage.waitFor(1000);
+    await this.module.directPage.click('a[href="/direct/inbox/"]');
+    await this.module.directPage.waitFor(1000);
+  }
 }
