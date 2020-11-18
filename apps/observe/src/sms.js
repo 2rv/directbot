@@ -1,23 +1,21 @@
 const app = require('express')();
 const bodyParser = require('body-parser');
+const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post('/message', handleInboundSms);
+app.post('/sms', handleInboundSms);
 
 function handleInboundSms(req, res) {
-  console.log('req.body', req.body);
-  console.log('msgFrom', req.body.From);
-  console.log('msgBody', req.body.Body);
+  const twiml = new MessagingResponse();
 
-  res.send(`
-    <Response>
-      <Message>
-        Hello ${req.body.From}. You said: ${req.body.Body}
-      </Message>
-    </Response>
-  `);
+  twiml.message('Test');
+
+  res.writeHead(200, { 'Content-Type': 'text/xml' });
+  res.end(twiml.toString());
 }
 
-app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 3000, () => {
+  console.log('started');
+});
