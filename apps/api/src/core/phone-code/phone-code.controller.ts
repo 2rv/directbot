@@ -1,4 +1,4 @@
-import { Body, Controller, Post, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Post, Query, ValidationPipe } from '@nestjs/common';
 import { SendPhoneCodeDto } from './dto/send-phone-code.dto';
 import { PhoneCodeService } from './phone-code.service';
 
@@ -11,5 +11,10 @@ export class PhoneCodeController {
     @Body(ValidationPipe) sendPhoneCodeDto: SendPhoneCodeDto,
   ): Promise<void> {
     return this.phoneCodeService.sendPhoneCode(sendPhoneCodeDto);
+  }
+
+  @Post('/recive-from-api')
+  async recivePhoneCodeFromApi(@Body() body, @Query() query): Promise<void> {
+    return this.phoneCodeService.recivePhoneCodeFromApi(body, query);
   }
 }

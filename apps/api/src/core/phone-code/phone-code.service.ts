@@ -1,5 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Query } from 'typeorm/driver/Query';
 import { SendPhoneCodeDto } from './dto/send-phone-code.dto';
 import { ErrorType } from './enum/error.enum';
 import { PhoneCodeRepository } from './phone-code.repository';
@@ -24,5 +25,9 @@ export class PhoneCodeService {
     code.value = sendPhoneCode.code;
 
     await code.save();
+  }
+
+  async recivePhoneCodeFromApi(body: Body, query: Query) {
+    console.log(body, query);
   }
 }
