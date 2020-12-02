@@ -1,1 +1,1 @@
-web: NODE_ENV=production node dist/apps/observe/main
+web: NODE_ENV=production node dist/apps/api/main
