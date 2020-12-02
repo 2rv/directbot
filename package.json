@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "nest build api && nest build observe",
+    "build": "nest build api",
     "build:api": "nest build api",
     "build:observe": "nest build observe",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",

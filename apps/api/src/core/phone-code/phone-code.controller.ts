@@ -14,7 +14,7 @@ export class PhoneCodeController {
   }
 
   @Post('/recive-from-api')
-  async recivePhoneCodeFromApi(@Body() body, @Query() query): Promise<void> {
-    return this.phoneCodeService.recivePhoneCodeFromApi(body, query);
+  async recivePhoneCodeFromApi(@Body() body): Promise<void> {
+    return this.phoneCodeService.recivePhoneCodeFromApi(body);
   }
 }

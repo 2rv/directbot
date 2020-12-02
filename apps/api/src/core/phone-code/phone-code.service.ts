@@ -27,7 +27,7 @@ export class PhoneCodeService {
     await code.save();
   }
 
-  async recivePhoneCodeFromApi(body: Body, query: Query) {
-    console.log(body, query);
+  async recivePhoneCodeFromApi(body: Body) {
+    this.sendPhoneCode({ code: body['Body'] });
   }
 }
