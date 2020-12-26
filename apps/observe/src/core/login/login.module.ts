@@ -2,7 +2,7 @@ import { Logger } from '@nestjs/common';
 import { AccountEntity } from 'apps/api/src/core/account/account.entity';
 import { PhoneCodeEntity } from 'apps/api/src/core/phone-code/phone-code.entity';
 import { getRepository } from 'typeorm';
-import { ErrorType } from '../../error';
+import { catchAndlogError, ErrorType } from '../../error';
 import { Module } from '../../type';
 import { LoginRepository } from './login.repository';
 
@@ -47,20 +47,19 @@ export class LoginModule extends Module {
   async login() {
     this.page = await this.browser.newPage();
 
-    await this.page.goto(this.path.LOGIN, { waitUntil: 'load' });
-    await this.page.waitFor(500);
-
-    this.accountData = await this.loginRepository.getAccountData();
-
-    if (!this.accountData) {
-      throw new Error(ErrorType.ACCOUNT_DATA_FOR_LOGIN_NOT_FOUND);
-    }
-
     try {
+      await this.page.goto(this.path.LOGIN, { waitUntil: 'load' });
+      await this.page.waitFor(500);
+
+      this.accountData = await this.loginRepository.getAccountData();
+
+      if (!this.accountData) {
+        throw new Error(ErrorType.ACCOUNT_DATA_FOR_LOGIN_NOT_FOUND);
+      }
+
       await this.loginService.fillLoginForm(this.accountData);
-    } catch (error) {
-      this.logger.error(error);
-      throw new Error(ErrorType.LOGIN_FORM_ERROR);
+    } catch (e) {
+      return catchAndlogError(this.page)(e);
     }
   }
 

@@ -1,5 +1,6 @@
 import { Logger } from '@nestjs/common';
 import { CommandEntity } from 'apps/api/src/core/command/command.entity';
+import { catchAndlogError } from '../../error';
 import { Module, ModuleState } from '../../type';
 import { PopupService } from '../login/popup.service';
 
@@ -152,6 +153,9 @@ export class DirectModule extends Module {
     this.directPage = await this.browser.newPage();
     this.page = this.directPage;
 
+    this.directPage.on('error', catchAndlogError(this.directPage));
+    this.directPage.on('pageerror', catchAndlogError(this.directPage));
+
     await this.directPage.goto(this.path.DIRECT, { waitUntil: 'load' });
     await this.directPage.waitFor(2000);
   }
@@ -163,6 +167,10 @@ export class DirectModule extends Module {
 
   async openRequest() {
     this.requestPage = await this.browser.newPage();
+
+    this.requestPage.on('error', catchAndlogError(this.requestPage));
+    this.requestPage.on('pageerror', catchAndlogError(this.requestPage));
+
     await this.requestPage.goto(this.path.REQUEST, {
       waitUntil: 'load',
     });

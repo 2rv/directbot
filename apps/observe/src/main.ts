@@ -12,8 +12,12 @@ async function bootstrap() {
   });
   const moduleProps = { browser };
 
-  await new LoginModule(moduleProps).init();
-  await new DirectModule(moduleProps).init();
+  try {
+    await new LoginModule(moduleProps).init();
+    await new DirectModule(moduleProps).init();
+  } catch (e) {
+    throw e;
+  }
 }
 
 bootstrap();
