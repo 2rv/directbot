@@ -8,7 +8,7 @@ async function bootstrap() {
   await initDatabaseConnection();
   const browser = await Puppeteer.launch({
     headless: process.env.NODE_ENV === 'production',
-    args: ['--no-sandbox'],
+    args: ['--no-sandbox', '--proxy-server=socks4://109.229.2.152:4145'],
   });
   const moduleProps = { browser };
 
