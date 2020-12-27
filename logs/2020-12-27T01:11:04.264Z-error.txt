@@ -1,4 +1,0 @@
-net::ERR_PROXY_CONNECTION_FAILED at https://www.instagram.com/accounts/login/?source=auth_switcher
-Error: net::ERR_PROXY_CONNECTION_FAILED at https://www.instagram.com/accounts/login/?source=auth_switcher
-    at navigate (/Users/turaievkyrylo/Work/directbot/api/node_modules/puppeteer/lib/cjs/puppeteer/common/FrameManager.js:115:23)
-    at processTicksAndRejections (internal/process/task_queues.js:89:5)
