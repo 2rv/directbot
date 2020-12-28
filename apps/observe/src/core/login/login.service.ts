@@ -25,6 +25,11 @@ export class LoginService extends Service {
     }
   }
 
+  async checkLogged() {
+    const logged = await this.module.page.$('a[href="/explore/"]');
+    return !!logged;
+  }
+
   async fillPhoneGuardForm() {
     await this.module.page.click('form button');
   }

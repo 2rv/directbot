@@ -7,7 +7,7 @@ import { initDatabaseConnection } from './database';
 async function bootstrap() {
   await initDatabaseConnection();
   const browser = await Puppeteer.launch({
-    headless: true,
+    headless: process.env.NODE_ENV === 'production',
     args: [
       '--no-sandbox',
       '--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36 1',

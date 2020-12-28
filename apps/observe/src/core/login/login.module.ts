@@ -28,17 +28,25 @@ export class LoginModule extends Module {
     this.logger.log('Starting login');
     await this.login();
 
-    this.logger.log('Starting close coockie popup');
-    await this.popupService.closeCoockiePopup();
-    this.logger.log('End close coockie popup');
+    this.logger.log('Check login session');
+    const isLogged = await this.loginService.checkLogged();
 
-    this.logger.log('Starting solve phone guard');
-    await this.solvePhoneGuard();
-    this.logger.log('End solve phone guard');
+    if (!isLogged) {
+      this.logger.log('Fill login data');
+      await this.fillLoginData();
 
-    this.logger.log('Starting close dialog popup');
-    await this.popupService.closeDialogPopup();
-    this.logger.log('End close dialog popup');
+      this.logger.log('Starting close coockie popup');
+      await this.popupService.closeCoockiePopup();
+      this.logger.log('End close coockie popup');
+
+      this.logger.log('Starting solve phone guard');
+      await this.solvePhoneGuard();
+      this.logger.log('End solve phone guard');
+
+      this.logger.log('Starting close dialog popup');
+      await this.popupService.closeDialogPopup();
+      this.logger.log('End close dialog popup');
+    }
 
     await this.closeLogin();
     this.logger.log('Ended login');
@@ -50,7 +58,13 @@ export class LoginModule extends Module {
     try {
       await this.page.goto(this.path.LOGIN, { waitUntil: 'load' });
       await this.page.waitFor(500);
+    } catch (e) {
+      return catchAndlogError(this.page)(e);
+    }
+  }
 
+  async fillLoginData() {
+    try {
       this.accountData = await this.loginRepository.getAccountData();
 
       if (!this.accountData) {

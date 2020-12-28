@@ -13,7 +13,7 @@
     "dev:api": "nest start api --watch",
     "dev:observe": "nest start observe --watch",
     "start:debug": "nest start --debug",
-    "start:prod": "node dist/main",
+    "start:prod": "npm run build:observe && NODE_ENV=production node dist/apps/observe/main",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "test": "jest",
     "test:watch": "jest --watch",
