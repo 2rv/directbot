@@ -198,10 +198,8 @@ export class DirectModule extends Module {
       commandId = this.command.findIndex(i => i.trigger === 'старт');
     }
 
-    try {
-      const { data } = this.command[commandId];
-      await this.chatService.sendMessage(data);
-    } catch {}
+    const { data } = this.command[commandId];
+    await this.chatService.sendMessage(data);
   }
 
   async answearRequestMessage() {
